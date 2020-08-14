@@ -4,9 +4,19 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="AirMonitor.Views.MainPage"
+             x:Class="AirMonitor.Views.DetailsPage"
              xmlns:controls="clr-namespace:AirMonitor.Views.Controls"
+             xmlns:Converter="clr-namespace:AirMonitor.Converter"
+             xmlns:ViewModels="clr-namespace:AirMonitor.ViewModels"
              BackgroundColor="#f9f9f9">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Converter:IntToStrConverter x:Key="intToStr" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <ViewModels:DetailsViewModel/>
+    </ContentPage.BindingContext>
 
     <ScrollView>
         <Grid>
@@ -29,7 +39,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span
-                                    Text="56"
+                                    Text="{ Binding CAQI}"
                                     Style="{ StaticResource CaqiValueSpanStyle}"/>
                                 <Span
                                     Text="{x:Static x:Environment.NewLine}"/>
@@ -63,13 +73,13 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
-                                            Text="34"
+                                            Text="{ Binding Pm25}"
                                             Style="{ StaticResource NormalTextSpanStyle}"/>
                                         <Span
                                             Text=" mg/m3 "
                                             Style="{ StaticResource SmallTextSpanStyle}"/>
                                         <Span
-                                            Text="(137%)"
+                                            Text="{ Binding Pm25Percent, StringFormat='({0}%)'}"
                                             Style="{ StaticResource NormalTextSpanStyle}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -90,14 +100,14 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span
-                                            Text="67"
+                                            Text="{ Binding Pm10}"
                                             Style="{ StaticResource NormalTextSpanStyle}"/>
                                         <Span
                                             Text=" mg/m3 "
                                             TextColor="Black"
                                             Style="{ StaticResource SmallTextSpanStyle}"/>
                                         <Span
-                                            Text="(135%)"
+                                            Text="{Binding Pm10Percent, StringFormat='({0}%)'}"
                                             Style="{ StaticResource NormalTextSpanStyle}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -113,10 +123,10 @@
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
                             <Label
-                                Text="95%"
+                                Text="{Binding Humidity, Converter={StaticResource intToStr}}"
                                 Style="{ StaticResource NormalTextSpanStyle}"/>
                             <Slider
-                                Value="0.95"
+                                Value="{Binding Humidity}"
                                 Style="{ StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
@@ -128,14 +138,14 @@
                     <controls:ContentWithHeader.ControlContent>
                         <StackLayout>
                             <Label
-                                Text="1026 hPa"
+                                Text="{Binding Pressure, StringFormat='{0} hPa'}"
                                 Style="{ StaticResource NormalTextSpanStyle}"/>
                             <!-- Set Maximum before Minimum in Slider -->
                             <Slider
                                 Maximum="1100"
                                 Minimum="900"
-                                Value="1026"
-                                Style="{ StaticResource SliderStyle}"/>
+                                Value="{Binding Pressure}"
+                                Style="{StaticResource SliderStyle}"/>
                         </StackLayout>
                     </controls:ContentWithHeader.ControlContent>
                 </controls:ContentWithHeader>

@@ -3,6 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <Style TargetType="Label" x:Key="TitleStyle">
+        <Setter Property="TextColor" Value="{ StaticResource PrimaryColor}"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+
     <Style TargetType="ContentPage" x:Key="DetailsPageStyle">
         <Setter Property="BackgroundColor" Value="{StaticResource DetailsBackgroundColor}"/>
     </Style>
