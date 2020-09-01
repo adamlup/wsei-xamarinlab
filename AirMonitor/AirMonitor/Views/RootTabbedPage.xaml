@@ -8,7 +8,6 @@
              xmlns:views="clr-namespace:AirMonitor.Views"
              x:Class="AirMonitor.Views.RootTabbedPage"
              android:TabbedPage.ToolbarPlacement="Bottom">
-
     <NavigationPage Title="Home">
         <x:Arguments>
             <views:HomePage/>

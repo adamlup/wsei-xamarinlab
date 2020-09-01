@@ -1,23 +1,31 @@
-﻿using AirMonitor.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using AirMonitor.Models;
+using AirMonitor.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace AirMonitor.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HomePage : ContentPage
     {
+
+        private HomeViewModel _viewModel => BindingContext as HomeViewModel;
+
+        public HomeViewModel homeViewModel;
+
         public HomePage()
         {
             InitializeComponent();
 
+            homeViewModel = new HomeViewModel(Navigation);
+            itemsListView.ItemsSource = homeViewModel.itemsList;
+
             BindingContext = new HomeViewModel(Navigation);
+        }
+
+        void ListView_ItemTapped(System.Object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        {
+            _viewModel.GoToDetailsCommand.Execute(e.Item as Measurement);
         }
     }
 }
